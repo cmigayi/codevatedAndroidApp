@@ -17,55 +17,61 @@ public class ActivitySplashScreen extends AppCompatActivity {
     int progressStatus = 0;
     TextView textView2, textInfo;
     Handler handler = new Handler();
+    LocalUserStorage localUserStorage;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        localUserStorage = new LocalUserStorage(this);
+
         progressBar=(ProgressBar)findViewById(R.id.progressBar1);
 
         textView2 = (TextView) findViewById(R.id.load_per);
         textInfo = (TextView) findViewById(R.id.about_info);
-        new Thread(new Runnable() {
-            public void run() {
-                while (progressStatus < 100)
-                {
-                    progressStatus += 5;
-                    handler.post(new Runnable()
-                    {
-                        public void run()
-                        {
-                            progressBar.setProgress(progressStatus);
-                            textView2.setText(progressStatus + "%");
 
-                            if(progressStatus==35){
-                                textInfo.setText("Meet someone that will hold your hand through your IT professional journey");
-                                textInfo.setTextColor(Color.parseColor("#4aacf7"));
-                            }
 
-                            if(progressStatus==65){
-                                textInfo.setText("A platform that connects you to IT professionals & experts that will mentor you in various IT concepts");
-                                textInfo.setTextColor(Color.parseColor("#f7924a"));
+        if(localUserStorage.getUserSignedinStatus() == true){
+            intent = new Intent(this,ActivityHome.class);
+            startActivity(intent);
+        }else {
+            new Thread(new Runnable() {
+                public void run() {
+                    while (progressStatus < 100) {
+                        progressStatus += 5;
+                        handler.post(new Runnable() {
+                            public void run() {
+                                progressBar.setProgress(progressStatus);
+                                textView2.setText(progressStatus + "%");
+
+                                if (progressStatus == 35) {
+                                    textInfo.setText("Meet someone that will hold your hand through your IT professional journey");
+                                    textInfo.setTextColor(Color.parseColor("#4aacf7"));
+                                    progressBar.setBackgroundColor(Color.parseColor("#4aacf7"));
+                                }
+
+                                if (progressStatus == 65) {
+                                    textInfo.setText("A platform that connects you to IT professionals & experts that will mentor you in various IT concepts");
+                                    textInfo.setTextColor(Color.parseColor("#f7924a"));
+                                    progressBar.setBackgroundColor(Color.parseColor("#f7924a"));
+                                }
                             }
+                        });
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                    });
-                    try
-                    {
-                        Thread.sleep(1000);
                     }
-                    catch (InterruptedException e)
-                    {
-                        e.printStackTrace();
+                    if (progressStatus == 100) {
+                        Intent i = new Intent(ActivitySplashScreen.this, ActivityMain.class);
+                        startActivity(i);
                     }
                 }
-                if (progressStatus==100)
-                {
-                    Intent i = new Intent(ActivitySplashScreen.this, ActivityMain.class);
-                    startActivity(i);
-                }
-            }
-        }).start();
+            }).start();
+        }
 
     }
 }

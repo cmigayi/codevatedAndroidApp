@@ -4,17 +4,6 @@
     android:layout_height="match_parent"
     android:background="#fff">
 
-    <TextView
-        android:id="@+id/Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Welcome to Codevated"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000"
-        android:textSize="30sp" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +26,7 @@
             android:textStyle="italic"
             android:textSize="13dp"
             android:textAlignment="center"
-            android:text="Learn From Mentorship &amp; Apprenticeship"/>
+            android:text="Learn from mentorship &amp; apprenticeship"/>
 
 
     </RelativeLayout>
@@ -48,6 +37,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#76DB51"
         android:max="100"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <include layout="@layout/tool_bar"
+        android:id="@+id/toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#eea040"
+                        android:textColor="#fff"
+                        android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:id="@+id/concept_title_tv"
+                        android:text="Concept title"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/concept_title_tv"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:id="@+id/total_title_content"
+                            android:textSize="13dp"
+                            android:textColor="#4b88cc"
+                            android:padding="5dp"
+                            android:text="Char: 0"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#eee"
+                            android:textColor="#000"
+                            android:textSize="13dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:text="Limit:100 Chars"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:hint="Concept title"
+                        android:inputType="textMultiLine"
+                        android:text=""
+                        android:id="@+id/concept_title"/>
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:visibility="gone"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:indeterminate="true"
+                        android:id="@+id/progressBarOne"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/content_header"
+                        android:background="#eea040"
+                        android:textColor="#fff"
+                        android:textSize="13dp"
+                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:text="Concept content"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/content_header"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/total_content"
+                            android:textSize="13dp"
+                            android:textColor="#4b88cc"
+                            android:padding="5dp"
+                            android:text="Char: 0"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="#eee"
+                            android:textColor="#000"
+                            android:textSize="13dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:text="Limit:1000 Chars"/>
+
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:hint="Write a concept..."
+                        android:inputType="textMultiLine"
+                        android:id="@+id/concept_content"/>
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:visibility="gone"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:indeterminate="true"
+                        android:id="@+id/progressBarTwo"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:minHeight="0dp"
+                android:padding="5dp"
+                android:background="#76DB51"
+                android:textColor="#fff"
+                android:textAllCaps="false"
+                android:textSize="13dp"
+                android:text="Preview and post"
+                android:id="@+id/preview_post_btn"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

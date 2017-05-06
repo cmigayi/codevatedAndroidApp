@@ -12,25 +12,33 @@
         android:layout_height="wrap_content"
         android:id="@+id/relative1">
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/logo"
+            android:src="@drawable/logo"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:id="@+id/title"
-            android:textSize="20dp"
-            android:text="Login "/>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/logo"
-            android:layout_below="@+id/title"/>
+            android:layout_below="@+id/logo"
+            android:text="Sign in to Codevated"/>
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative1"
+        android:layout_centerHorizontal="true"
+        android:textColor="#cc2118"
+        android:textSize="13dp"
+        android:id="@+id/errors"/>
+
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:id="@+id/linear1"
@@ -39,32 +47,64 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/username"
+            android:textSize="13dp"
+            android:id="@+id/username_or_email"
             android:hint="Email / username"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:inputType="textPassword"
             android:id="@+id/password"
             android:hint="Password"/>
 
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:layout_marginLeft="70dp"
-            android:background="#76DB51"
-            android:textColor="#fff"
-            android:minHeight="0dp"
-            android:padding="7dp"
-            android:textSize="16dp"
-            android:text="Sign in now"
-            android:id="@+id/signin"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:id="@+id/loading_linear">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:indeterminate="true"
+                    android:id="@+id/progressBarTwo"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Signing in..."/>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:layout_marginLeft="60dp"
+                android:background="#76DB51"
+                android:textColor="#fff"
+                android:minHeight="0dp"
+                android:padding="5dp"
+                android:textSize="13dp"
+                android:text="Sign in now"
+                android:id="@+id/signin"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/linear1">
@@ -77,6 +117,8 @@
             android:background="@null"
             android:textAllCaps="false"
             android:textColor="#76DB51"
+            android:textSize="13dp"
+            android:textStyle="normal"
             android:id="@+id/signup"/>
 
         <Button
@@ -87,6 +129,8 @@
             android:background="@null"
             android:textAllCaps="false"
             android:textColor="#76DB51"
+            android:textSize="13dp"
+            android:textStyle="normal"
             android:id="@+id/forgot_pwd"/>
 
     </RelativeLayout>

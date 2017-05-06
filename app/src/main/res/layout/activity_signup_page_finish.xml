@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="#fff">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="#4b88cc"
+        android:text="Congratulations,"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/congratulations_you_have_completed_the_signup_process_an_email_has_been_sent_to_you_with_an_activation_link_in_order_to_signin_next_time_you_must_activate_your_account"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="#4b88cc"
+        android:text="an activation link."/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="In order to signin next time you must activate your account."
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#76DB51"
+        android:minHeight="0dp"
+        android:padding="5dp"
+        android:textSize="13dp"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:id="@+id/finish_btn"
+        android:text="Finish signup"/>
+
+</LinearLayout>

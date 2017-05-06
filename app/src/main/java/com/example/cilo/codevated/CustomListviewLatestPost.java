@@ -6,21 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by cilo on 4/20/17.
  */
 
 public class CustomListviewLatestPost extends ArrayAdapter {
-    String [] items;
+    ArrayList<HashMap<String,String>> arrayList;
     Context context;
     LayoutInflater layoutInflater;
+    TextView title,viewTv,bottomContent;
+    ImageView profImg,cartegoryIcon;
 
-    public CustomListviewLatestPost(Context context, String[] items) {
-        super(context, R.layout.custom_listview_latest_post, items);
+    public CustomListviewLatestPost(Context context, ArrayList<HashMap<String,String>> arrayList) {
+        super(context, R.layout.custom_listview_latest_post, arrayList);
 
-        this.items = items;
+        this.arrayList = arrayList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -28,15 +36,21 @@ public class CustomListviewLatestPost extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.custom_listview_latest_post,null);
-        TextView title = (TextView) convertView.findViewById(R.id.title);
-        TextView viewNew = (TextView) convertView.findViewById(R.id.view);
-        viewNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        title = (TextView) convertView.findViewById(R.id.title);
+        viewTv = (TextView) convertView.findViewById(R.id.view);
+        bottomContent = (TextView) convertView.findViewById(R.id.bottom_content);
+        profImg = (ImageView) convertView.findViewById(R.id.prof_img);
+        cartegoryIcon = (ImageView) convertView.findViewById(R.id.cartegory_icon);
 
-            }
-        });
-        title.append(items[position]);
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap = arrayList.get(position);
+        title.setText(hashMap.get("name"));
+        viewTv.setText(hashMap.get("views"));
+        bottomContent.setText("Content-type:"+hashMap.get("content_type")
+                +", Resources:Attached, Posted by "+hashMap.get("username")+" | "+hashMap.get("posted_date"));
+        Picasso.with(context).load(hashMap.get("profile_img")).transform(new CircleTransform()).into(profImg);
+        Picasso.with(context).load(hashMap.get("cartegory_icon")).into(cartegoryIcon);
+
         return convertView;
     }
 }

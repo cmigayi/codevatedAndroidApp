@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Codevated</string>
+    <string name="terms_and_conditions">On signing up to codevated, we will assume that you have read and agreed to our terms and conditions.</string>
+    <string name="your_sign_up_email_text">Your new password will be sent to your email address. Make sure you enter the email address you used during your sign up!</string>
+    <string name="go_back"><![CDATA[<< Go Back]]></string>
+    <string name="this_will_remove_your_account_and_data_completely_from_codevated">This will remove your account and data completely from codevated</string>
+    <string name="congratulations_you_have_completed_the_signup_process_an_email_has_been_sent_to_you_with_an_activation_link_in_order_to_signin_next_time_you_must_activate_your_account"> you have completed the signup process! An email has been sent to you with </string>
 </resources>
