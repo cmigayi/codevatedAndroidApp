@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,13 +24,15 @@ import java.util.HashMap;
 public class ActivityProfileAccount extends AppCompatActivity implements View.OnClickListener {
     Toolbar toolbar;
     ImageView menuImg, postConceptImg,logoImg,notifyImg,userImg;
+    EditText oldPwdEt,newPwdEt,confirmNewPwdEt,usernameEt;
+    Button changePwdBtn,changeUsernameBtn,deleteAccountBtn;
     TextView notifyCount;
     Intent intent;
     Common common;
     LocalUserStorage localUserStorage;
     User user;
 
-    HashMap<String,String> requestFromServerHashmap;
+    HashMap<String,String> requestFromServerHashmap,dataFromServerHashmap;
 
     Concept concept;
     String url,titleStr,contentStr;
@@ -67,6 +71,19 @@ public class ActivityProfileAccount extends AppCompatActivity implements View.On
         userImg.setOnClickListener(this);
 
         setSupportActionBar(toolbar);
+
+        oldPwdEt = (EditText) findViewById(R.id.old_pwd);
+        newPwdEt = (EditText) findViewById(R.id.new_pwd);
+        confirmNewPwdEt = (EditText) findViewById(R.id.confirm_new_pwd);
+        usernameEt = (EditText) findViewById(R.id.username);
+
+        changePwdBtn = (Button) findViewById(R.id.change_pwd_btn);
+        changeUsernameBtn = (Button) findViewById(R.id.change_username_btn);
+        deleteAccountBtn = (Button) findViewById(R.id.delete_account_btn);
+
+        changePwdBtn.setOnClickListener(this);
+        changeUsernameBtn.setOnClickListener(this);
+        deleteAccountBtn.setOnClickListener(this);
     }
 
     @Override
@@ -124,6 +141,119 @@ public class ActivityProfileAccount extends AppCompatActivity implements View.On
                 intent = new Intent(getApplicationContext(),ActivityUserProfile.class);
                 startActivity(intent);
                 break;
+            case R.id.change_pwd_btn:
+                String newPwdStr = newPwdEt.getText().toString();
+                String oldPwdStr = oldPwdEt.getText().toString();
+                String confirmNewPwdStr = confirmNewPwdEt.getText().toString();
+
+                if(oldPwdStr.length()>0 && newPwdStr.length()>0 && confirmNewPwdStr.length()>0){
+
+                    if(oldPwdStr.equals(user.password)){
+
+                        if(newPwdStr.equals(confirmNewPwdStr)){
+                            url = "/changePassword.php";
+                            requestFromServerHashmap = new HashMap<>();
+                            requestFromServerHashmap.put("user_id",""+user.userId);
+                            requestFromServerHashmap.put("pass",newPwdStr);
+
+                            new SendDataToServer(requestFromServerHashmap, url, new UrlCallBack() {
+                                @Override
+                                public void done(String response) {
+                                    if(response == null){
+
+                                    }else{
+                                        handleJsonDataFromServer = new HandleJsonDataFromServer(response);
+                                        dataFromServerArraylist = handleJsonDataFromServer.changePassword();
+
+                                        if(dataFromServerArraylist == null){
+
+                                        }else{
+                                            dataFromServerHashmap = new HashMap<String, String>();
+                                            dataFromServerHashmap = dataFromServerArraylist.get(0);
+
+                                            user.setPassword(dataFromServerHashmap.get("password"));
+                                            localUserStorage.StorePassword(user);
+                                        }
+                                    }
+                                }
+                            }).execute();
+
+                        }else{
+                            //Your new password do not match
+                        }
+                    }else{
+                        //You entered a wrong old password
+                    }
+
+                }else{
+                    //all fields must be filled
+                }
+
+                break;
+            case R.id.change_username_btn:
+                String usernameStr = usernameEt.getText().toString();
+                if(usernameStr.length() > 0){
+                    url = "/changeUsername.php";
+                    requestFromServerHashmap = new HashMap<>();
+                    requestFromServerHashmap.put("user_id",""+user.userId);
+                    requestFromServerHashmap.put("username",usernameStr);
+
+                    new SendDataToServer(requestFromServerHashmap, url, new UrlCallBack() {
+                        @Override
+                        public void done(String response) {
+                            if(response == null){
+
+                            }else{
+                                handleJsonDataFromServer = new HandleJsonDataFromServer(response);
+                                dataFromServerArraylist = handleJsonDataFromServer.changeUsername();
+
+                                if(dataFromServerArraylist == null){
+
+                                }else {
+                                    dataFromServerHashmap = new HashMap<String, String>();
+                                    dataFromServerHashmap = dataFromServerArraylist.get(0);
+
+                                    user.setPassword(dataFromServerHashmap.get("username"));
+                                    localUserStorage.StoreUsername(user);
+                                }
+                            }
+                        }
+                    }).execute();
+
+                }else{
+                    //No username provided
+                }
+                break;
+            case R.id.delete_account_btn:
+                url = "/deleteAccount.php";
+                requestFromServerHashmap = new HashMap<>();
+                requestFromServerHashmap.put("user_id",""+user.userId);
+
+                new SendDataToServer(requestFromServerHashmap, url, new UrlCallBack() {
+                    @Override
+                    public void done(String response) {
+                        if(response == null){
+
+                        }else{
+                            handleJsonDataFromServer = new HandleJsonDataFromServer(response);
+                            dataFromServerArraylist = handleJsonDataFromServer.deleteAccount();
+
+                            if(dataFromServerArraylist == null){
+
+                            }else {
+                                dataFromServerHashmap = dataFromServerArraylist.get(0);
+
+                                if(dataFromServerHashmap.get("status").equals("true")){
+                                    localUserStorage.clearuserData();
+                                    startActivity(new Intent(getApplicationContext(),ActivityMain.class));
+                                }
+                            }
+                        }
+                    }
+                }).execute();
+
+                break;
         }
     }
+
 }

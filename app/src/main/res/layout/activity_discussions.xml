@@ -15,7 +15,7 @@
         android:background="#76DB51"
         android:elevation="6dp"
         android:minHeight="2dp"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

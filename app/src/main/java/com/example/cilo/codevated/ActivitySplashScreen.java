@@ -39,20 +39,20 @@ public class ActivitySplashScreen extends AppCompatActivity {
         }else {
             new Thread(new Runnable() {
                 public void run() {
-                    while (progressStatus < 100) {
-                        progressStatus += 5;
+                    while (progressStatus < 96) {
+                        progressStatus += 8;
                         handler.post(new Runnable() {
                             public void run() {
                                 progressBar.setProgress(progressStatus);
                                 textView2.setText(progressStatus + "%");
 
-                                if (progressStatus == 35) {
+                                if (progressStatus == 32) {
                                     textInfo.setText("Meet someone that will hold your hand through your IT professional journey");
                                     textInfo.setTextColor(Color.parseColor("#4aacf7"));
                                     progressBar.setBackgroundColor(Color.parseColor("#4aacf7"));
                                 }
 
-                                if (progressStatus == 65) {
+                                if (progressStatus == 64) {
                                     textInfo.setText("A platform that connects you to IT professionals & experts that will mentor you in various IT concepts");
                                     textInfo.setTextColor(Color.parseColor("#f7924a"));
                                     progressBar.setBackgroundColor(Color.parseColor("#f7924a"));
@@ -65,7 +65,7 @@ public class ActivitySplashScreen extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    if (progressStatus == 100) {
+                    if (progressStatus == 96) {
                         Intent i = new Intent(ActivitySplashScreen.this, ActivityMain.class);
                         startActivity(i);
                     }

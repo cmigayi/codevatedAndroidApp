@@ -73,8 +73,28 @@ public class ActivityMentees extends AppCompatActivity implements View.OnClickLi
 
         gridView = (GridView) findViewById(R.id.gridView);
 
-//        CustomGridviewAllMentors customGridviewAllMentors = new CustomGridviewAllMentors(this,mentors);
-//        gridView.setAdapter(customGridviewAllMentors);
+        url = "/getMentees.php";
+        requestFromServerHashmap = new HashMap<>();
+        requestFromServerHashmap.put("user_id",""+user.userId);
+        new GetDataFromServer(requestFromServerHashmap, url, new UrlCallBack() {
+            @Override
+            public void done(String response) {
+               if(response == null){
+
+               }else{
+                   handleJsonDataFromServer = new HandleJsonDataFromServer(response);
+                   dataFromServerArraylist = handleJsonDataFromServer.getMentorsOrMentees();
+
+                   if(dataFromServerArraylist == null){
+
+                   }else {
+                       CustomGridviewAllMentees customGridviewAllMentees =
+                               new CustomGridviewAllMentees(getBaseContext(), dataFromServerArraylist);
+                       gridView.setAdapter(customGridviewAllMentees);
+                   }
+               }
+            }
+        }).execute();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.example.cilo.codevated;
 
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -156,29 +159,24 @@ public class Common {
         dialog.show();
     }
 
-    public void searchPopUp(){
-        dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_concept_search);
-        dialog.closeOptionsMenu();
-        dialog.setTitle("");
-        dialog.show();
-    }
+    public void notification(int uniqueID,String title){
+        NotificationCompat.Builder notification;
 
-    public void findTypePopUp(){
-        String[] types = {"Android","Java","CSS"};
+        notification = new NotificationCompat.Builder(context);
+        notification.setAutoCancel(true);
 
-        dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_find_type);
-        dialog.closeOptionsMenu();
-        dialog.setTitle("Specific type/s:");
+        notification.setSmallIcon(R.drawable.logo);
+        notification.setTicker("New Codevated notifications");
+        notification.setWhen(System.currentTimeMillis());
+        notification.setContentTitle(title);
+        notification.setContentText("Click to view your new nofications");
 
-        ListView listView = (ListView) dialog.findViewById(R.id.listview);
+        Intent intent = new Intent(context,ActivityNotification.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+        notification.setContentIntent(pendingIntent);
 
-        CustomListviewInterestTypeCheckbox customListviewInterestTypeCheckbox =
-                new CustomListviewInterestTypeCheckbox(context,types);
-        listView.setAdapter(customListviewInterestTypeCheckbox);
-
-        dialog.show();
+        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.notify(uniqueID,notification.build());
     }
 
     public String getAbsolutePath(Uri uri) {

@@ -48,7 +48,12 @@ public class CustomListviewLatestPost extends ArrayAdapter {
         viewTv.setText(hashMap.get("views"));
         bottomContent.setText("Content-type:"+hashMap.get("content_type")
                 +", Resources:Attached, Posted by "+hashMap.get("username")+" | "+hashMap.get("posted_date"));
-        Picasso.with(context).load(hashMap.get("profile_img")).transform(new CircleTransform()).into(profImg);
+
+        if(hashMap.get("profile_img").equals("n") || hashMap.get("profile_img").equals("")){
+
+        }else{
+            Picasso.with(context).load(hashMap.get("profile_img")).transform(new CircleTransform()).into(profImg);
+        }
         Picasso.with(context).load(hashMap.get("cartegory_icon")).into(cartegoryIcon);
 
         return convertView;

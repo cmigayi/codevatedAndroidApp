@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,19 +27,19 @@ public class ActivityChats extends AppCompatActivity implements View.OnClickList
     Toolbar toolbar;
     ImageView menuImg, postConceptImg,logoImg,notifyImg,userImg;
     TextView notifyCount;
-    TabLayout tabLayout;
-    ViewPager viewPager;
     Intent intent;
     Common common;
 
     LocalUserStorage localUserStorage;
     User user;
 
-    HashMap<String,String> requestFromServerHashmap;
+    HashMap<String,String> requestDataFromServer;
     HandleJsonDataFromServer handleJsonDataFromServer;
     ArrayList<HashMap<String,String>> dataFromServerArraylist;
     int dataFromServerState;
     String url;
+
+    ListView listView;
 
     BroadcastReceiver broadcastReceiver;
 
@@ -69,33 +71,47 @@ public class ActivityChats extends AppCompatActivity implements View.OnClickList
 
         setSupportActionBar(toolbar);
 
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        listView = (ListView) findViewById(R.id.listview);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Online"));
-        tabLayout.addTab(tabLayout.newTab().setText("Conversations"));
-        tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
+        url = "/getPeopleChat.php";
+        requestDataFromServer = new HashMap<>();
+        requestDataFromServer.put("user_id",""+user.userId);
 
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),"Chats");
-
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        new GetDataFromServer(requestDataFromServer, url, new UrlCallBack() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+            public void done(String response) {
+
+                if(response == null){
+
+                }else{
+
+                    handleJsonDataFromServer = new HandleJsonDataFromServer(response);
+                    dataFromServerArraylist = handleJsonDataFromServer.peopleChat();
+
+                    if(dataFromServerArraylist == null){
+
+                    }else{
+
+                        CustomListviewPeopleChat customListviewPeopleChat =
+                                new CustomListviewPeopleChat(getBaseContext(),dataFromServerArraylist);
+                        listView.setAdapter(customListviewPeopleChat);
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                HashMap<String,String> map = new HashMap<String, String>();
+                                map = dataFromServerArraylist.get(position);
+
+                                Intent intent = new Intent(ActivityChats.this,ActivityChatConversation.class);
+                                intent.putExtra("chatmap",map);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }
+
             }
+        }).execute();
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
     @Override

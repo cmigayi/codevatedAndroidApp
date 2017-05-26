@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 public class ActivityNotification extends AppCompatActivity implements View.OnClickListener{
     Toolbar toolbar;
     ImageView menuImg, postConceptImg,logoImg,notifyImg,userImg;
-    TextView notifyCount;
+    TextView notifyCount,noData;
     ListView listView;
     Intent intent;
     Common common;
@@ -30,7 +31,7 @@ public class ActivityNotification extends AppCompatActivity implements View.OnCl
     LocalUserStorage localUserStorage;
     User user;
 
-    HashMap<String,String> requestFromServerHashmap;
+    HashMap<String,String> requestFromServerHashmap,dataFromServerHashmap;
     HandleJsonDataFromServer handleJsonDataFromServer;
     ArrayList<HashMap<String,String>> dataFromServerArraylist;
     int dataFromServerState;
@@ -66,6 +67,8 @@ public class ActivityNotification extends AppCompatActivity implements View.OnCl
         setSupportActionBar(toolbar);
 
         listView = (ListView) findViewById(R.id.listview);
+        noData = (TextView) findViewById(R.id.no_data);
+
         url = "/getNotifications.php";
         requestFromServerHashmap = new HashMap<>();
         requestFromServerHashmap.put("user_id",""+user.userId);
@@ -82,9 +85,27 @@ public class ActivityNotification extends AppCompatActivity implements View.OnCl
                     if(dataFromServerArraylist == null){
 
                     }else{
-                        CustomListviewNotifications customListviewNotifications =
-                                new CustomListviewNotifications(getBaseContext(),dataFromServerArraylist);
-                        listView.setAdapter(customListviewNotifications);
+                        dataFromServerHashmap = dataFromServerArraylist.get(0);
+                        int rows = Integer.parseInt(dataFromServerHashmap.get("rows"));
+
+                        if(rows > 0){
+                            noData.setVisibility(View.GONE);
+
+                            CustomListviewNotifications customListviewNotifications =
+                                    new CustomListviewNotifications(getBaseContext(), dataFromServerArraylist);
+                            listView.setAdapter(customListviewNotifications);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    dataFromServerHashmap = new HashMap<String, String>();
+                                    dataFromServerHashmap = dataFromServerArraylist.get(position);
+
+                                    Intent intent = new Intent(ActivityNotification.this, ActivityReadNotification.class);
+                                    intent.putExtra("dataFromAnotherPage",dataFromServerHashmap);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
                     }
                 }
             }

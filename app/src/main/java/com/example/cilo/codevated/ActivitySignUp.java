@@ -207,13 +207,14 @@ public class ActivitySignUp extends AppCompatActivity implements View.OnClickLis
                                 Log.d("cecil","no result");
                             }else{
                                 loadingLinear.setVisibility(View.GONE);
-                                signinRelative.setVisibility(View.VISIBLE);
-                                signupLinear.setVisibility(View.VISIBLE);
 
                                 handleJsonDataFromServer = new HandleJsonDataFromServer(result);
                                 userDataArrayList = handleJsonDataFromServer.userContentFromServer();
 
                                 if(userDataArrayList == null){
+                                    signinRelative.setVisibility(View.VISIBLE);
+                                    signupLinear.setVisibility(View.VISIBLE);
+
                                     errorTv.setText("Sorry, signup process was not complete!");
                                 }else {
 

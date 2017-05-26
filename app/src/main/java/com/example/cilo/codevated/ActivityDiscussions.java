@@ -73,8 +73,9 @@ public class ActivityDiscussions extends AppCompatActivity implements View.OnCli
         viewPager = (ViewPager) findViewById(R.id.pager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Discussions"));
+        tabLayout.addTab(tabLayout.newTab().setText("Start a discussion"));
         tabLayout.addTab(tabLayout.newTab().setText("Your Contributions"));
-        tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
+        tabLayout.setTabGravity(tabLayout.GRAVITY_CENTER);
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),"Discussions");
 

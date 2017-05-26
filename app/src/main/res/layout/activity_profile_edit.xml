@@ -48,32 +48,37 @@
                     android:textStyle="bold"/>
 
                 <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:id="@+id/prof_img"
-                    android:src="@drawable/female_user_dark"/>
+                    android:background="#eee"/>
 
                 <RelativeLayout
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center">
 
                     <Button
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="#ccc"
                         android:minHeight="0dp"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:textAllCaps="false"
                         android:text="Change pic"
                         android:id="@+id/change_pic_btn"/>
 
                     <Button
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         android:minHeight="0dp"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:textAllCaps="false"
-                        android:text="Upload pic"
+                        android:text="Now upload this pic!"
+                        android:textColor="#fff"
+                        android:background="#cc2118"
                         android:id="@+id/upload_pic_btn"/>
 
                 </RelativeLayout>

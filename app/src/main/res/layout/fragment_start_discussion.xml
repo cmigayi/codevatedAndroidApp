@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eea040"
+        android:textColor="#fff"
+        android:textSize="13dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:text="Start a discussion"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:padding="5dp">
+
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:hint="Your topic..."
+            android:textSize="13dp"
+            android:padding="10dp"
+            android:id="@+id/topic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="#ccc"
+            android:padding="5dp"
+            android:textSize="13dp"
+            android:text="0"
+            android:id="@+id/total_char"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="1dp"
+        android:background="#eee"/>
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#e5ffdc"
+        android:padding="5dp"
+        android:text="@string/for_your_topic_to_be_posted_you_will_require_atleast_someone_to_second_it_by_default_we_send_it_to_your_mentors_to_aid_in_the_process"
+        android:textSize="14dp"
+        android:textStyle="italic"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#eee"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#76DB51"
+            android:minHeight="0dp"
+            android:padding="5dp"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="13dp"
+            android:text="Post"
+            android:id="@+id/post_btn"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#4b88cc"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:minHeight="0dp"
+            android:padding="5dp"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="13dp"
+            android:text="Discussion posted successfull, go back"
+            android:id="@+id/success_btn"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

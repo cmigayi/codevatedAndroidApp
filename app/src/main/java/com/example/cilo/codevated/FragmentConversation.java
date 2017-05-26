@@ -21,9 +21,9 @@ public class FragmentConversation extends Fragment {
         View view = inflater.inflate(R.layout.fragment_conversation_chat,null);
         listView = (ListView) view.findViewById(R.id.listview);
 
-        CustomListviewConversationChat customListviewConversationChat =
-                new CustomListviewConversationChat(getActivity(),items);
-        listView.setAdapter(customListviewConversationChat);
+//        CustomListviewConversationChat customListviewConversationChat =
+//                new CustomListviewConversationChat(getActivity(),items);
+//        listView.setAdapter(customListviewConversationChat);
 
         return view;
     }

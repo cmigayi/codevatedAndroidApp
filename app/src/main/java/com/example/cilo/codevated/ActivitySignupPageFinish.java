@@ -18,6 +18,7 @@ public class ActivitySignupPageFinish extends AppCompatActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page_finish);
+        overridePendingTransition(0, 0);
 
         finishBtn = (Button) findViewById(R.id.finish_btn);
 

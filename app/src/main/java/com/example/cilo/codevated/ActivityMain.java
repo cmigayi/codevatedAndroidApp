@@ -67,11 +67,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
 
                 if(inputValidationState == null){
 
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-
                             signinBtn.setVisibility(View.GONE);
                             loadingLinear.setVisibility(View.VISIBLE);
 
@@ -113,8 +108,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
                                     }
                                 }
                             }).execute();
-                        }
-                    },1000);
 
                 }else{
                     errorTv.setText(inputValidationState);

@@ -35,7 +35,7 @@ public class ActivityMentors extends AppCompatActivity implements View.OnClickLi
     LocalUserStorage localUserStorage;
     User user;
 
-    HashMap<String,String> requestFromServerHashmap;
+    HashMap<String,String> requestFromServerHashmap,dataFromServerhashmap;
     HandleJsonDataFromServer handleJsonDataFromServer;
     ArrayList<HashMap<String,String>> dataFromServerArraylist;
     int dataFromServerState;
@@ -85,15 +85,24 @@ public class ActivityMentors extends AppCompatActivity implements View.OnClickLi
 
                 }else{
                     handleJsonDataFromServer = new HandleJsonDataFromServer(response);
-                    dataFromServerArraylist = handleJsonDataFromServer.getMentors();
+                    dataFromServerArraylist = handleJsonDataFromServer.getMentorsOrMentees();
 
                     if(dataFromServerArraylist == null){
 
                     }else{
-                        Log.d("cilo90",""+dataFromServerArraylist);
-                        CustomGridviewAllMentors customGridviewAllMentors =
-                                new CustomGridviewAllMentors(getBaseContext(),dataFromServerArraylist);
-                        gridView.setAdapter(customGridviewAllMentors);
+                        dataFromServerhashmap = dataFromServerArraylist.get(0);
+                        int state = Integer.parseInt(dataFromServerhashmap.get("state"));
+
+                        Log.d("cilo123",""+state);
+
+                        if(state == 0){
+
+                        }else {
+                            Log.d("cilo90", "" + dataFromServerArraylist);
+                            CustomGridviewAllMentors customGridviewAllMentors =
+                                    new CustomGridviewAllMentors(getBaseContext(), dataFromServerArraylist);
+                            gridView.setAdapter(customGridviewAllMentors);
+                        }
                     }
 
                 }

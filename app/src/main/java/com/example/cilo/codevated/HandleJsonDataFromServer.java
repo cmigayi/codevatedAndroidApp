@@ -154,6 +154,7 @@ public class HandleJsonDataFromServer {
                 String cartegoryName = dataItem.getString("cartegory_name");
                 String cartegoryTotal = dataItem.getString("cartegory_total");
                 String cartegoryIcon = dataItem.getString("cartegory_icon");
+                String status = dataItem.getString("status");
 
                 dataFromServerHashMap = new HashMap<>();
                 dataFromServerHashMap.put("interest_id",interestID);
@@ -161,6 +162,7 @@ public class HandleJsonDataFromServer {
                 dataFromServerHashMap.put("cartegory_name",cartegoryName);
                 dataFromServerHashMap.put("cartegory_total",cartegoryTotal);
                 dataFromServerHashMap.put("cartegory_icon",cartegoryIcon);
+                dataFromServerHashMap.put("status",status);
 
                 dataFromServerArraylist.add(dataFromServerHashMap);
             }
@@ -210,30 +212,42 @@ public class HandleJsonDataFromServer {
             if(dataFromServerJsonArray.length() == 0){
                 dataFromServerArraylist = null;
             }else {
+
                 for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
                     JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
 
-                    String profileImg = dataItem.getString("profile_img");
-                    String cartegoryName = dataItem.getString("cartegory_name");
-                    String cartegoryIcon = dataItem.getString("cartegory_icon");
-                    String name = dataItem.getString("name");
-                    String conceptID = dataItem.getString("concept_id");
-                    String contentType = dataItem.getString("content_type");
-                    String username = dataItem.getString("username");
-                    String postedDate = dataItem.getString("posted_date");
-                    String views = dataItem.getString("views");
+                    int state = dataItem.getInt("state");
 
                     HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("profile_img", profileImg);
-                    hashMap.put("cartegory_name", cartegoryName);
-                    hashMap.put("cartegory_icon", cartegoryIcon);
-                    hashMap.put("name", name);
-                    hashMap.put("concept_id", conceptID);
-                    hashMap.put("content_type", contentType);
-                    hashMap.put("username", username);
-                    hashMap.put("posted_date", postedDate);
-                    hashMap.put("views", views);
+                    hashMap.put("state",""+state);
 
+                    if(state == 0){
+
+                    }else {
+
+                        String profileImg = dataItem.getString("profile_img");
+                        String cartegoryName = dataItem.getString("cartegory_name");
+                        String cartegoryIcon = dataItem.getString("cartegory_icon");
+                        String name = dataItem.getString("name");
+                        String conceptID = dataItem.getString("concept_id");
+                        String contentType = dataItem.getString("content_type");
+                        String conceptContent = dataItem.getString("concept_content");
+                        String username = dataItem.getString("username");
+                        String postedDate = dataItem.getString("posted_date");
+                        String views = dataItem.getString("views");
+
+                        hashMap.put("profile_img", profileImg);
+                        hashMap.put("cartegory_name", cartegoryName);
+                        hashMap.put("cartegory_icon", cartegoryIcon);
+                        hashMap.put("name", name);
+                        hashMap.put("concept_id", conceptID);
+                        hashMap.put("content_type", contentType);
+                        hashMap.put("concept_content", conceptContent);
+                        hashMap.put("username", username);
+                        hashMap.put("posted_date", postedDate);
+                        hashMap.put("views", views);
+
+                    }
                     dataFromServerArraylist.add(hashMap);
                 }
             }
@@ -257,21 +271,27 @@ public class HandleJsonDataFromServer {
 
             for(int i=0;i<dataFromServerJsonArray.length();i++){
                 JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
-
-                String circleID = dataItem.getString("circle_id");
-                String circleName = dataItem.getString("circle_name");
-                String cartegoryName = dataItem.getString("cartegory_name");
-                String members = dataItem.getString("members");
-                String posts = dataItem.getString("posts");
-                String username = dataItem.getString("username");
+                int state = dataItem.getInt("state");
 
                 dataFromServerHashMap = new HashMap<>();
-                dataFromServerHashMap.put("circle_id",circleID);
-                dataFromServerHashMap.put("circle_name",circleName);
-                dataFromServerHashMap.put("cartegory_name",cartegoryName);
-                dataFromServerHashMap.put("members",members);
-                dataFromServerHashMap.put("posts",posts);
-                dataFromServerHashMap.put("username",username);
+                dataFromServerHashMap.put("state",""+state);
+
+                if(state > 0) {
+
+                    String circleID = dataItem.getString("circle_id");
+                    String circleName = dataItem.getString("circle_name");
+                    String cartegoryName = dataItem.getString("cartegory_name");
+                    String members = dataItem.getString("members");
+                    String posts = dataItem.getString("posts");
+                    String username = dataItem.getString("username");
+
+                    dataFromServerHashMap.put("circle_id", circleID);
+                    dataFromServerHashMap.put("circle_name", circleName);
+                    dataFromServerHashMap.put("cartegory_name", cartegoryName);
+                    dataFromServerHashMap.put("members", members);
+                    dataFromServerHashMap.put("posts", posts);
+                    dataFromServerHashMap.put("username", username);
+                }
 
                 dataFromServerArraylist.add(dataFromServerHashMap);
             }
@@ -401,23 +421,31 @@ public class HandleJsonDataFromServer {
 
             for(int i=0;i<dataFromServerJsonArray.length();i++){
                 JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
-
-                String notificationID = dataItem.getString("notification_id");
-                String source= dataItem.getString("source");
-                String title = dataItem.getString("title");
-                String message = dataItem.getString("message");
-                String status = dataItem.getString("status");
-                String postedDate = dataItem.getString("posted_date");
-                String postedDateTwo = dataItem.getString("posted_date_two");
+                int rows = dataItem.getInt("rows");
 
                 dataFromServerHashMap = new HashMap<>();
-                dataFromServerHashMap.put("notification_id",notificationID);
-                dataFromServerHashMap.put("source",source);
-                dataFromServerHashMap.put("title",title);
-                dataFromServerHashMap.put("message",message);
-                dataFromServerHashMap.put("status",status);
-                dataFromServerHashMap.put("posted_date",postedDate);
-                dataFromServerHashMap.put("posted_date_two",postedDateTwo);
+
+                dataFromServerHashMap.put("rows", ""+rows);
+
+                if(rows > 0){
+
+                    String notificationID = dataItem.getString("notification_id");
+                    String source = dataItem.getString("source");
+                    String title = dataItem.getString("title");
+                    String message = dataItem.getString("message");
+                    String status = dataItem.getString("status");
+                    String postedDate = dataItem.getString("posted_date");
+                    String postedDateTwo = dataItem.getString("posted_date_two");
+
+                    dataFromServerHashMap.put("notification_id", notificationID);
+                    dataFromServerHashMap.put("source", source);
+                    dataFromServerHashMap.put("title", title);
+                    dataFromServerHashMap.put("message", message);
+                    dataFromServerHashMap.put("status", status);
+                    dataFromServerHashMap.put("posted_date", postedDate);
+                    dataFromServerHashMap.put("posted_date_two", postedDateTwo);
+
+                }
 
                 dataFromServerArraylist.add(dataFromServerHashMap);
             }
@@ -429,14 +457,37 @@ public class HandleJsonDataFromServer {
         return dataFromServerArraylist;
     }
 
-    public ArrayList<HashMap<String,String>> getMentors(){
+    public int markNotificationAsRead(){
+        int state = -1;
+
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                state = -1;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("notification");
+
+            JSONObject dataItem = dataFromServerJsonArray.getJSONObject(0);
+
+            state = dataItem.getInt("state");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return state;
+    }
+
+    public ArrayList<HashMap<String,String>> getMentorsOrMentees(){
         try{
 
             jsonObject = new JSONObject(response);
             if(jsonObject.length() == 0){
                 dataFromServerJsonArray = null;
             }
-            dataFromServerJsonArray = jsonObject.getJSONArray("userMentors");
+            dataFromServerJsonArray = jsonObject.getJSONArray("userMentorsOrMentees");
 
             if(dataFromServerJsonArray.length() == 0) {
                 dataFromServerJsonArray = null;
@@ -444,18 +495,23 @@ public class HandleJsonDataFromServer {
 
             for(int i=0;i<dataFromServerJsonArray.length();i++){
                 JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
-                //get mentor
-                String userID = dataItem.getString("user_id");
-                String username = dataItem.getString("username");
-                String profImg = dataItem.getString("prof_img");
-                String status = dataItem.getString("status");
+                int state = dataItem.getInt("state");
 
-                HashMap<String,String> hashMap = new HashMap<>();
-                hashMap.put("user_id",userID);
-                hashMap.put("username",username);
-                hashMap.put("prof_img",profImg);
-                hashMap.put("status",status);
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("state",""+state);
 
+                if(state > 0) {
+                    //get mentor
+                    String userID = dataItem.getString("user_id");
+                    String username = dataItem.getString("username");
+                    String profImg = dataItem.getString("prof_img");
+                    String status = dataItem.getString("status");
+
+                    hashMap.put("user_id", userID);
+                    hashMap.put("username", username);
+                    hashMap.put("prof_img", profImg);
+                    hashMap.put("status", status);
+                }
                 dataFromServerArraylist.add(hashMap);
             }
 
@@ -488,4 +544,469 @@ public class HandleJsonDataFromServer {
         return state;
     }
 
+    public int checkIfMenteeState(){
+        int state = -1;
+
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                state = -1;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("mentee");
+            JSONObject dataItem = dataFromServerJsonArray.getJSONObject(0);
+
+            state = dataItem.getInt("state");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return state;
+    }
+
+    public int checkIfUserInterestState(){
+        int state = -1;
+
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                state = -1;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("userInterest");
+            JSONObject dataItem = dataFromServerJsonArray.getJSONObject(0);
+
+            state = dataItem.getInt("state");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return state;
+    }
+
+    public String uploadProfilePic(){
+        String imgUrl = null;
+
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                imgUrl = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("profile");
+            JSONObject dataItem = dataFromServerJsonArray.getJSONObject(0);
+
+            imgUrl = dataItem.getString("prof_img");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return imgUrl;
+    }
+
+    public ArrayList<HashMap<String,String>> updateProfileInfo(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("profile");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    String email = dataItem.getString("email");
+                    String bio = dataItem.getString("bio");
+                    String location = dataItem.getString("location");
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("email", email);
+                    hashMap.put("bio", bio);
+                    hashMap.put("location", location);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
+
+    public ArrayList<HashMap<String,String>> changePassword(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("profile");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    String password = dataItem.getString("password");
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("password", password);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
+
+    public ArrayList<HashMap<String,String>> changeUsername(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("profile");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    String username = dataItem.getString("username");
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("username", username);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
+
+    public ArrayList<HashMap<String,String>> deleteAccount(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("account");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    boolean status = dataItem.getBoolean("status");
+                    Log.d("cilo103",""+status);
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("status",""+status);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
+
+    public ArrayList<HashMap<String,String>> searchUsername(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("userData");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    String userID = dataItem.getString("user_id");
+                    String username = dataItem.getString("username");
+                    String profImg = dataItem.getString("prof_img");
+                    Log.d("cilo103",""+username);
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("user_id",userID);
+                    hashMap.put("username",username);
+                    hashMap.put("prof_img",profImg);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
+
+    public ArrayList<HashMap<String,String>> blockedUsers(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("userData");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    String userID = dataItem.getString("user_id");
+                    String username = dataItem.getString("username");
+                    String profImg = dataItem.getString("prof_img");
+                    Log.d("cilo103",""+username);
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("user_id",userID);
+                    hashMap.put("username",username);
+                    hashMap.put("prof_img",profImg);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
+
+    public ArrayList<HashMap<String,String>> peopleChat(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("chat");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    String userID = dataItem.getString("user_id");
+                    String relation = dataItem.getString("relation");
+                    String username = dataItem.getString("username");
+                    String profImg = dataItem.getString("prof_img");
+                    Log.d("cilo103",""+username);
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("user_id",userID);
+                    hashMap.put("relation",relation);
+                    hashMap.put("username",username);
+                    hashMap.put("prof_img",profImg);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
+
+    public ArrayList<HashMap<String,String>> chatConversations(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("chat");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    String userID = dataItem.getString("user_id");
+                    String respondent = dataItem.getString("respondent");
+                    String message = dataItem.getString("message");
+                    String dateTime = dataItem.getString("posted_date");
+                    Log.d("cilo103",""+message);
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+
+                    hashMap.put("user_id",userID);
+                    hashMap.put("respondent",respondent);
+                    hashMap.put("message",message);
+                    hashMap.put("posted_date",dateTime);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
+
+    public String checkIfDiscussionIsPosted(){
+        String status = null;
+
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                status = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("discussion");
+
+            JSONObject dataItem = dataFromServerJsonArray.getJSONObject(0);
+
+            status = dataItem.getString("status");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return status;
+    }
+
+    public ArrayList<HashMap<String,String>> getDiscussions(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("discussion");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    String userID = dataItem.getString("user_id");
+                    String seconderID = dataItem.getString("seconder_id");
+                    String username = dataItem.getString("username");
+                    String profImg = dataItem.getString("prof_img");
+                    String seconderUsername = dataItem.getString("seconder_username");
+                    String seconderProfImg = dataItem.getString("seconder_prof_img");
+                    String topic = dataItem.getString("topic");
+                    String postedDate = dataItem.getString("posted_date");
+                    Log.d("cilo103",""+username);
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("user_id",userID);
+                    hashMap.put("seconder_id",seconderID);
+                    hashMap.put("username",username);
+                    hashMap.put("prof_img",profImg);
+                    hashMap.put("seconder_username",seconderUsername);
+                    hashMap.put("seconder_prof_img",seconderProfImg);
+                    hashMap.put("topic",topic);
+                    hashMap.put("posted_date",postedDate);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
+
+    public ArrayList<HashMap<String,String>> getUserDiscussionsContributions(){
+        try{
+            jsonObject = new JSONObject(response);
+
+            if(jsonObject.length() == 0){
+                dataFromServerArraylist = null;
+            }
+
+            dataFromServerJsonArray = jsonObject.getJSONArray("discussion");
+
+            Log.d("cilo",""+dataFromServerJsonArray.length());
+
+            if(dataFromServerJsonArray.length() == 0){
+                dataFromServerArraylist = null;
+            }else {
+                for (int i = 0; i < dataFromServerJsonArray.length(); i++) {
+                    JSONObject dataItem = dataFromServerJsonArray.getJSONObject(i);
+
+                    String discussionID = dataItem.getString("discussion_id");
+                    String topic = dataItem.getString("topic");
+                    String postedDate = dataItem.getString("posted_date");
+                    Log.d("cilo103",""+topic);
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("discussion_id",discussionID);
+                    hashMap.put("topic",topic);
+                    hashMap.put("posted_date",postedDate);
+
+                    dataFromServerArraylist.add(hashMap);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dataFromServerArraylist;
+    }
 }

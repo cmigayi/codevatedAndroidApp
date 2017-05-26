@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 
 public class FragmentLastedPost extends Fragment implements View.OnClickListener {
     ListView listView;
-    TextView latestPostStatusTv;
+    TextView latestPostStatusTv,pageErrorTv;
     Button viewBtn;
     LinearLayout loadingLinear,linearNoInternet;
     RelativeLayout relativePostedItems;
@@ -43,7 +44,7 @@ public class FragmentLastedPost extends Fragment implements View.OnClickListener
     Common common;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_latest_post,container,false);
 
         common = new Common(getActivity());
@@ -51,6 +52,7 @@ public class FragmentLastedPost extends Fragment implements View.OnClickListener
 
         listView = (ListView) view.findViewById(R.id.listview);
         latestPostStatusTv = (TextView) view.findViewById(R.id.latest_post_status);
+        pageErrorTv = (TextView) view.findViewById(R.id.page_error);
         viewBtn = (Button) view.findViewById(R.id.view);
         loadingLinear = (LinearLayout) view.findViewById(R.id.loading_linear);
         linearNoInternet = (LinearLayout) view.findViewById(R.id.linear_no_internet);
@@ -63,22 +65,26 @@ public class FragmentLastedPost extends Fragment implements View.OnClickListener
         requestDataFromServer.put("num_rows","");
         Log.d("cilo",""+user.userId);
 
-        if(common.isNetworkAvailable() == false){
+        if(common.isNetworkAvailable() == true){
 
             new GetDataFromServer(requestDataFromServer, url, new UrlCallBack() {
                 @Override
                 public void done(String response) {
 
                     if(response == null){
+                        loadingLinear.setVisibility(View.GONE);
 
+                        pageErrorTv.setText("Sorry, the server seems not to be responding, try again!");
+                        relativePostedItems.setVisibility(View.GONE);
+                        linearNoInternet.setVisibility(View.VISIBLE);
                     }else{
-
                         handleJsonDataFromServer = new HandleJsonDataFromServer(response);
                         dataFromServerArraylist = handleJsonDataFromServer.getPosts();
 
+                        loadingLinear.setVisibility(View.GONE);
+
                         if(dataFromServerArraylist == null){
                             latestPostStatusTv.setVisibility(View.VISIBLE);
-                            listView.setVisibility(View.GONE);
                             viewBtn.setVisibility(View.GONE);
                             latestPostStatusTv.setText("You should add interests to get posts!");
                         }else {
@@ -86,6 +92,19 @@ public class FragmentLastedPost extends Fragment implements View.OnClickListener
                             CustomListviewLatestPost customListviewLatestPost =
                                     new CustomListviewLatestPost(getActivity(), dataFromServerArraylist);
                             listView.setAdapter(customListviewLatestPost);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    HashMap<String,String> hashMap = new HashMap<String, String>();
+                                    hashMap = dataFromServerArraylist.get(position);
+
+                                    Intent intent = new Intent(getActivity(),ActivitySelectedConcept.class);
+                                    intent.putExtra("conceptHashmap",hashMap);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            listView.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -100,7 +119,6 @@ public class FragmentLastedPost extends Fragment implements View.OnClickListener
         }else{
             relativePostedItems.setVisibility(View.GONE);
             linearNoInternet.setVisibility(View.VISIBLE);
-            getActivity().stopService(new Intent(getActivity(),ServiceLatestPost.class));
         }
 
 
@@ -125,7 +143,11 @@ public class FragmentLastedPost extends Fragment implements View.OnClickListener
                         handleJsonDataFromServer = new HandleJsonDataFromServer(item);
                         dataFromServerArraylist = handleJsonDataFromServer.getPosts();
                         if (dataFromServerArraylist == null) {
+                            loadingLinear.setVisibility(View.GONE);
 
+                            pageErrorTv.setText("Sorry, the server seems not to be responding, try again!");
+                            relativePostedItems.setVisibility(View.GONE);
+                            linearNoInternet.setVisibility(View.VISIBLE);
                         } else {
 
                             if (dataFromServerArraylist.size() > count) {

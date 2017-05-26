@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class CustomListviewNotifications extends ArrayAdapter {
     Context context;
     LayoutInflater layoutInflater;
     TextView msgTitle,unreadTv,newTv,msgdate,senderName;
+    ImageView imageView;
     Date date;
 
     public CustomListviewNotifications(Context context, ArrayList<HashMap<String,String>> arrayList) {
@@ -43,6 +46,7 @@ public class CustomListviewNotifications extends ArrayAdapter {
         newTv = (TextView) convertView.findViewById(R.id.new_tv);
         msgdate = (TextView) convertView.findViewById(R.id.msgdate);
         senderName = (TextView) convertView.findViewById(R.id.sender_name);
+        imageView = (ImageView) convertView.findViewById(R.id.sender_pic);
 
         date = new Date();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
@@ -53,6 +57,9 @@ public class CustomListviewNotifications extends ArrayAdapter {
         msgTitle.setText(hashMap.get("title"));
         msgdate.setText(hashMap.get("posted_date"));
         senderName.setText(hashMap.get("source"));
+        if(hashMap.get("source").equals("Codevated team")){
+            imageView.setImageResource(R.drawable.logo);
+        }
 
         if(hashMap.get("status").equals("read")){
             unreadTv.setText("Read");

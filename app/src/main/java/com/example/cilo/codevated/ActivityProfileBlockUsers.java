@@ -4,15 +4,24 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,15 +33,18 @@ import java.util.HashMap;
 public class ActivityProfileBlockUsers extends AppCompatActivity implements View.OnClickListener{
 
     Toolbar toolbar;
-    ImageView menuImg, postConceptImg,logoImg,notifyImg,userImg;
-    TextView firstInfo, notifyCount;
+    ImageView menuImg, postConceptImg,logoImg,notifyImg,userImg,profImg;
+    TextView notifyCount;
     Intent intent;
     Common common;
+
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
     LocalUserStorage localUserStorage;
     User user;
 
-    HashMap<String,String> requestFromServerHashmap;
+    HashMap<String,String> requestFromServerHashmap,dataFromServerHashmap;
     HandleJsonDataFromServer handleJsonDataFromServer;
     ArrayList<HashMap<String,String>> dataFromServerArraylist;
     int dataFromServerState;
@@ -68,15 +80,33 @@ public class ActivityProfileBlockUsers extends AppCompatActivity implements View
 
         setSupportActionBar(toolbar);
 
-        firstInfo = (TextView) findViewById(R.id.first_info);
-        firstInfo.append(
-                "\n" +
-                "\n1. Accessing and commenting on your posts.\n" +
-                "\n2. Inviting you to their circle.\n" +
-                "\n3. Viewing your activities.\n" +
-                "\n4. Sending you any notifications.\n" +
-                "\n5. Viewing your profile.\n");
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        viewPager = (ViewPager) findViewById(R.id.pager);
 
+        tabLayout.addTab(tabLayout.newTab().setText("Block user"));
+        tabLayout.addTab(tabLayout.newTab().setText("Blocked users"));
+        tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
+
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),"BlockUser");
+
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
@@ -116,7 +146,7 @@ public class ActivityProfileBlockUsers extends AppCompatActivity implements View
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.menu_icon:
-                common.userProfilePopUp();
+                common.moreMenuPopUp();
                 break;
             case R.id.logo_icon:
                 intent = new Intent(getApplicationContext(),ActivityHome.class);

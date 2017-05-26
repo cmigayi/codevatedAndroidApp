@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/female_user"
+            android:id="@+id/user_pic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="#e83632"
+            android:padding="3dp"
+            android:textColor="#fff"
+            android:textSize="13dp"
+            android:text="9.0"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="13dp"
+        android:textStyle="bold"
+        android:text="jjjjj"
+        android:id="@+id/username"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="12dp"
+        android:textStyle="normal"
+        android:text="Android, PHP, Python, Mysql, Java"
+        android:id="@+id/user_skills"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#cccccc"
+            android:minHeight="0dp"
+            android:padding="5dp"
+            android:text="+ Add mentee"
+            android:textSize="13dp"
+            android:textAllCaps="false"
+            android:id="@+id/add_mentee"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

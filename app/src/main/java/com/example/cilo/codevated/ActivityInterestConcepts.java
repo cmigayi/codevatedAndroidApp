@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -93,10 +94,26 @@ public class ActivityInterestConcepts extends AppCompatActivity implements View.
                     handleJsonDataFromServer = new HandleJsonDataFromServer(response);
                     dataFromServerArraylist = handleJsonDataFromServer.getPosts();
 
-                    CustomListviewInterestConceptsItem customListviewInterestConceptsItem =
-                            new CustomListviewInterestConceptsItem(getBaseContext(),dataFromServerArraylist);
+                    if(dataFromServerArraylist == null){
 
-                    listView.setAdapter(customListviewInterestConceptsItem);
+                    }else {
+
+                        CustomListviewInterestConceptsItem customListviewInterestConceptsItem =
+                                new CustomListviewInterestConceptsItem(getBaseContext(), dataFromServerArraylist);
+
+                        listView.setAdapter(customListviewInterestConceptsItem);
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                HashMap<String, String> hashMap = new HashMap<String, String>();
+                                hashMap = dataFromServerArraylist.get(position);
+
+                                Intent intent = new Intent(getBaseContext(), ActivitySelectedConcept.class);
+                                intent.putExtra("conceptHashmap", hashMap);
+                                startActivity(intent);
+                            }
+                        });
+                    }
                 }
             }
         }).execute();

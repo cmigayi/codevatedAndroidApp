@@ -6,18 +6,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -40,10 +45,12 @@ public class ActivityProfileEdit extends AppCompatActivity implements View.OnCli
     public static final int REQUEST_CAMERA = 1;
     public static final int SELECT_FILE = 2;
 
+    boolean state;
+
     LocalUserStorage localUserStorage;
     User user;
 
-    HashMap<String,String> requestFromServerHashmap;
+    HashMap<String,String> requestFromServerHashmap,dataFromServerHashmap;
     HandleJsonDataFromServer handleJsonDataFromServer;
     ArrayList<HashMap<String,String>> dataFromServerArraylist;
     int dataFromServerState;
@@ -84,6 +91,9 @@ public class ActivityProfileEdit extends AppCompatActivity implements View.OnCli
         locationEt = (EditText) findViewById(R.id.location);
         profImg = (ImageView) findViewById(R.id.prof_img);
 
+        if(user.profImg.length() > 0){
+            Picasso.with(this).load(user.profImg).into(profImg);
+        }
         emailEt.setText(user.email);
         bioEt.setText(user.bio);
         locationEt.setText(user.location);
@@ -156,31 +166,117 @@ public class ActivityProfileEdit extends AppCompatActivity implements View.OnCli
                 selectImage();
                 break;
             case R.id.upload_pic_btn:
-                Bitmap map = getCurrentImg();
-                if(map != null) {
-                    ByteArrayOutputStream bs = new ByteArrayOutputStream();
-                    map.compress(Bitmap.CompressFormat.PNG, 0, bs);
-                    //intent.putExtra("bitmap", bs.toByteArray());
-                    //startActivity(intent);
+                Bitmap bitmap = getCurrentImg();
+                if(bitmap == null) {
+
+                }else{
+//                    ByteArrayOutputStream bs = new ByteArrayOutputStream();
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 0, bs);
+
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                    String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+                    Log.d("cilo102",encodedImage);
+                    url = "/uploadProfilePic.php";
+                    requestFromServerHashmap = new HashMap<>();
+                    requestFromServerHashmap.put("user_id",""+user.userId);
+                    requestFromServerHashmap.put("pic",encodedImage);
+
+                    new SendDataToServer(requestFromServerHashmap, url, new UrlCallBack() {
+                        @Override
+                        public void done(String response) {
+                            if(response == null){
+
+                            }else{
+                                handleJsonDataFromServer = new HandleJsonDataFromServer(response);
+                                String imgUrl = handleJsonDataFromServer.uploadProfilePic();
+
+                                Log.d("cilo102",imgUrl);
+
+                                if(imgUrl == null){
+
+                                }else{
+                                    Log.d("cilo102","Upload successful");
+
+                                    user.setProfImg(imgUrl);
+                                    localUserStorage.StoreProfImg(user);
+                                    changePicBtn.setVisibility(View.VISIBLE);
+                                    uploadPicBtn.setVisibility(View.GONE);
+                                }
+                            }
+                        }
+                    }).execute();
                 }
+                break;
+            case R.id.update_prof_btn:
+                String emailStr = emailEt.getText().toString();
+                String bioStr = bioEt.getText().toString();
+                String location = locationEt.getText().toString();
+
+                url = "/updateProfileInfo.php";
+                requestFromServerHashmap = new HashMap<>();
+                requestFromServerHashmap.put("user_id",""+user.userId);
+                requestFromServerHashmap.put("email",emailStr);
+                requestFromServerHashmap.put("bio",bioStr);
+                requestFromServerHashmap.put("location",location);
+
+                new SendDataToServer(requestFromServerHashmap, url, new UrlCallBack() {
+                    @Override
+                    public void done(String response) {
+                        if(response == null){
+
+                        }else{
+                            handleJsonDataFromServer = new HandleJsonDataFromServer(response);
+                            dataFromServerArraylist = handleJsonDataFromServer.updateProfileInfo();
+
+                            if(dataFromServerArraylist == null){
+
+                            }else{
+                                dataFromServerHashmap = new HashMap<String, String>();
+                                dataFromServerHashmap = dataFromServerArraylist.get(0);
+
+                                user.setEmail(dataFromServerHashmap.get("email"));
+                                user.setBio(dataFromServerHashmap.get("bio"));
+                                user.setLocation(dataFromServerHashmap.get("location"));
+
+                                localUserStorage.StoreUserProfileData(user);
+                            }
+                        }
+                    }
+                }).execute();
                 break;
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == RESULT_OK){
-            switch(resultCode){
+        if(resultCode == RESULT_OK){
+            switch(requestCode){
                 case REQUEST_CAMERA:
-                        Bitmap thumbnail = (Bitmap) intent.getExtras().get("data");
+                        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
                         profImg.setImageBitmap(thumbnail);
                         setCurrentImg(thumbnail);
+                    state = true;
                     break;
                 case SELECT_FILE:
-                        String selectedImageUri = common.getAbsolutePath(intent.getData());
+                        String selectedImageUri = common.getAbsolutePath(data.getData());
                         profImg.setImageBitmap(common.decodeFile(selectedImageUri));
                         setCurrentImg(common.decodeFile(selectedImageUri));
+                    state = true;
                     break;
+            }
+        }
+
+        if(state == true){
+            Drawable drawable = profImg.getDrawable();
+            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+
+            if(bitmap == null){
+                changePicBtn.setVisibility(View.VISIBLE);
+                uploadPicBtn.setVisibility(View.GONE);
+            }else{
+                changePicBtn.setVisibility(View.GONE);
+                uploadPicBtn.setVisibility(View.VISIBLE);
             }
         }
     }

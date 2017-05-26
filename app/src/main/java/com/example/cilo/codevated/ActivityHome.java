@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by cilo on 4/20/17.
@@ -44,6 +45,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     String url;
 
     BroadcastReceiver broadcastReceiver;
+    int rand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,9 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
         userImg = (ImageView) toolbar.findViewById(R.id.user_icon);
         notifyCount = (TextView) toolbar.findViewById(R.id.notify_count);
 
-        startService(new Intent(this,ServiceNotificationStatus.class));
+        if(common.isNetworkAvailable() == true) {
+            startService(new Intent(this, ServiceNotificationStatus.class));
+        }
 
         menuImg.setOnClickListener(this);
         postConceptImg.setOnClickListener(this);
@@ -106,9 +110,11 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
-        if(common.isNetworkAvailable() == false) {
 
-        }else{
+        rand = (int) (System.currentTimeMillis() * dataFromServerState);
+
+        if(common.isNetworkAvailable() == true) {
+
             if (broadcastReceiver == null) {
                 broadcastReceiver = new BroadcastReceiver() {
                     @Override
@@ -123,6 +129,8 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
                             if (dataFromServerState > 0) {
                                 notifyCount.setText("" + dataFromServerState);
                                 notifyCount.setVisibility(View.VISIBLE);
+
+                                common.notification(rand,dataFromServerState+" new notifications");
                             }
                         }
                     }

@@ -45,10 +45,14 @@ public class ServiceNotificationStatus extends Service {
                     new GetDataFromServer(requestDataFromServer, url, new UrlCallBack() {
                         @Override
                         public void done(String response) {
-                            Log.d("cilo--",response);
-                            Intent i = new Intent("notifications");
-                            i.putExtra("data",response);
-                            sendBroadcast(i);
+                            if(response == null){
+
+                            }else {
+                                Log.d("cilo--", response);
+                                Intent i = new Intent("notifications");
+                                i.putExtra("data", response);
+                                sendBroadcast(i);
+                            }
                         }
                     }).execute();
 

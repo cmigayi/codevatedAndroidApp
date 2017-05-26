@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class User {
     int userId;
-    String username,email,gender,password,location,bio;
+    String username,email,profImg,gender,password,location,bio;
 
     public User(){}
 
@@ -45,6 +45,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getProfImg() {
+        return profImg;
+    }
+
+    public void setProfImg(String profImg) {
+        this.profImg = profImg;
     }
 
     public String getGender() {

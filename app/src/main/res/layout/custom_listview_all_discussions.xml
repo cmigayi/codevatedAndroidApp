@@ -49,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="10dp"
-                android:text=", 12 April 2017"/>
+                android:text=", 12 April 2017"
+                android:id="@+id/posted_date"/>
 
 
         </LinearLayout>

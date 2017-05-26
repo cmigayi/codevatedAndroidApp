@@ -50,12 +50,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 case 3:
                     FragmentsMyMentees fragmentsMyMentees = new FragmentsMyMentees();
                     return fragmentsMyMentees;
-                case 4:
-                    FragmentMyDiscussions fragmentMyDiscussions = new FragmentMyDiscussions();
-                    return fragmentMyDiscussions;
-                case 5:
-                    FragmentMyChats fragmentMyChats = new FragmentMyChats();
-                    return fragmentMyChats;
             }
         }
         if(activityName == "Discussions"){
@@ -64,18 +58,32 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                     fragmentDiscussions = new FragmentDiscussions();
                     return fragmentDiscussions;
                 case 1:
-                    fragmentDiscussions = new FragmentDiscussions();
-                    return fragmentDiscussions;
+                    FragmentStartDiscussion fragmentStartDiscussion = new FragmentStartDiscussion();
+                    return fragmentStartDiscussion;
+                case 2:
+                    FragmentMyDiscussionsContributions fragmentMyDiscussionsContributions =
+                            new FragmentMyDiscussionsContributions();
+                    return fragmentMyDiscussionsContributions;
             }
         }
         if(activityName == "Chats"){
             switch (position){
                 case 0:
-                    FragmentOnlineChat fragmentOnlineChat = new FragmentOnlineChat();
-                    return fragmentOnlineChat;
+                    FragmentPeopleChat fragmentPeopleChat = new FragmentPeopleChat();
+                    return fragmentPeopleChat;
                 case 1:
                     FragmentConversation fragmentConversation = new FragmentConversation();
                     return fragmentConversation;
+            }
+        }
+        if(activityName == "BlockUser"){
+            switch (position){
+                case 0:
+                    FragmentBlockUser fragmentBlockUser = new FragmentBlockUser();
+                    return fragmentBlockUser;
+                case 1:
+                    FragmentBlockedUsers fragmentBlockedUsers = new FragmentBlockedUsers();
+                    return fragmentBlockedUsers;
             }
         }
         return null;

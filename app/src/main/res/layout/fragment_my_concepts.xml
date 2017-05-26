@@ -30,6 +30,34 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="#fff"
+        android:padding="5dp"
+        android:id="@+id/no_data_linear_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="You have not posted any concepts yet!"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:padding="7dp"
+            android:background="#ddd"
+            android:textAllCaps="false"
+            android:text="Post your first concept"
+            android:id="@+id/post_btn"/>
+
+    </LinearLayout>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

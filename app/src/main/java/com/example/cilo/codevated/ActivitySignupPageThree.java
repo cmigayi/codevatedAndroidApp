@@ -35,6 +35,7 @@ public class ActivitySignupPageThree extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page_three);
+        overridePendingTransition(0, 0);
 
         localUserStorage = new LocalUserStorage(this);
         user = localUserStorage.getSignedinUser();

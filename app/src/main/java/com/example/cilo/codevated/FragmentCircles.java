@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class FragmentCircles extends Fragment {
     String url;
     HandleJsonDataFromServer handleJsonDataFromServer;
     ArrayList<HashMap<String,String>> dataFromServerArraylist;
-    HashMap<String,String> dataSelectedHashMap,requestDataFromServer;
+    HashMap<String,String> dataSelectedHashMap,requestDataFromServer,dataFromServerhashmap;
 
     Intent intent;
 
@@ -52,21 +53,30 @@ public class FragmentCircles extends Fragment {
                     if(dataFromServerArraylist == null){
 
                     }else{
-                        CustomGridviewAllCircles customGridviewAllCircles =
-                                new CustomGridviewAllCircles(getActivity(),dataFromServerArraylist);
+                        dataFromServerhashmap = dataFromServerArraylist.get(0);
+                        int state = Integer.parseInt(dataFromServerhashmap.get("state"));
 
-                        gridView.setAdapter(customGridviewAllCircles);
-                        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                dataSelectedHashMap = new HashMap<String, String>();
+                        Log.d("cilo123",""+state);
 
-                                dataSelectedHashMap = dataFromServerArraylist.get(position);
-                                intent = new Intent(getActivity(),ActivityCircleSelected.class);
-                                intent.putExtra("dataSelectedHashmap",dataSelectedHashMap);
-                                getActivity().startActivity(intent);
-                            }
-                        });
+                        if(state == 0){
+
+                        }else {
+                            CustomGridviewAllCircles customGridviewAllCircles =
+                                    new CustomGridviewAllCircles(getActivity(), dataFromServerArraylist);
+
+                            gridView.setAdapter(customGridviewAllCircles);
+                            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    dataSelectedHashMap = new HashMap<String, String>();
+
+                                    dataSelectedHashMap = dataFromServerArraylist.get(position);
+                                    intent = new Intent(getActivity(), ActivityCircleSelected.class);
+                                    intent.putExtra("dataSelectedHashmap", dataSelectedHashMap);
+                                    getActivity().startActivity(intent);
+                                }
+                            });
+                        }
                     }
                 }
             }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,7 +26,8 @@ import java.util.HashMap;
  */
 
 public class ActivityPreviewConcept extends AppCompatActivity implements View.OnClickListener{
-    TextView conceptContent,conceptTitle,totalTitleContent,totalContent,notifyCount;
+    TextView conceptContent,conceptTitle,totalTitleContent,totalContent,notifyCount,dataPosted;
+    ScrollView scrollView;
     Button postBtn;
 
     Toolbar toolbar;
@@ -73,6 +76,8 @@ public class ActivityPreviewConcept extends AppCompatActivity implements View.On
 
         conceptTitle = (TextView) findViewById(R.id.concept_title);
         conceptContent = (TextView) findViewById(R.id.concept_content);
+        dataPosted = (TextView) findViewById(R.id.data_posted);
+        scrollView = (ScrollView) findViewById(R.id.scrollView);
         postBtn = (Button) findViewById(R.id.post_btn);
 
         concept = localConceptDatabase.getConceptData();
@@ -133,18 +138,30 @@ public class ActivityPreviewConcept extends AppCompatActivity implements View.On
                 requestFromServerHashmap.put("content",contentStr);
                 requestFromServerHashmap.put("interest_id",""+6);
 
-                new GetDataFromServer(requestFromServerHashmap, url, new UrlCallBack() {
+                new SendDataToServer(requestFromServerHashmap, url, new UrlCallBack() {
                     @Override
                     public void done(String response) {
                         if(response == null){
 
                         }else{
+                            handleJsonDataFromServer = new HandleJsonDataFromServer(response);
                             dataFromServerState = handleJsonDataFromServer.checkIfConceptIsPosted();
 
+                            Log.d("cilo122",""+dataFromServerState);
+
                             if(dataFromServerState == 1){
-                                Log.d("","Successfully posted");
+                                Log.d("cilo122","Successfully posted");
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dataPosted.setVisibility(View.VISIBLE);
+                                        scrollView.setVisibility(View.GONE);
+                                    }
+                                },1000);
+
                             }else{
-                                Log.d("","Something went terribly wrong "+dataFromServerState);
+                                Log.d("cilo122","Something went terribly wrong "+dataFromServerState);
                             }
 
                         }

@@ -29,6 +29,33 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="5dp"
+        android:id="@+id/no_data_linear_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You have not added mentors yet"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:textAllCaps="false"
+            android:padding="10dp"
+            android:text="Add a mentor"
+            android:id="@+id/add_mentor"/>
+
+    </LinearLayout>
+
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"

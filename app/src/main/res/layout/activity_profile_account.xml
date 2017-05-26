@@ -49,19 +49,22 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:textSize="13dp"
-                    android:hint="Old password"/>
+                    android:hint="Old password"
+                    android:id="@+id/old_pwd"/>
 
                 <EditText
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:textSize="13dp"
-                    android:hint="New password"/>
+                    android:hint="New password"
+                    android:id="@+id/new_pwd"/>
 
                 <EditText
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:textSize="13dp"
-                    android:hint="Confirm new password"/>
+                    android:hint="Confirm new password"
+                    android:id="@+id/confirm_new_pwd"/>
 
                 <Button
                     android:layout_width="200dp"
@@ -70,7 +73,8 @@
                     android:padding="10dp"
                     android:textAllCaps="false"
                     android:textSize="13dp"
-                    android:text="Change password"/>
+                    android:text="Change password"
+                    android:id="@+id/change_pwd_btn"/>
 
             </LinearLayout>
 
@@ -106,7 +110,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:textSize="13dp"
-                    android:hint="Change your username"/>
+                    android:hint="Change your username"
+                    android:id="@+id/username"/>
 
                 <Button
                     android:layout_width="200dp"
@@ -115,7 +120,8 @@
                     android:padding="10dp"
                     android:textAllCaps="false"
                     android:textSize="13dp"
-                    android:text="Change username"/>
+                    android:text="Change username"
+                    android:id="@+id/change_username_btn"/>
 
             </LinearLayout>
 
@@ -154,7 +160,8 @@
                     android:textColor="#fff"
                     android:textSize="13dp"
                     android:textStyle="bold"
-                    android:text="Delete your account"/>
+                    android:text="Delete your account"
+                    android:id="@+id/delete_account_btn"/>
 
             </LinearLayout>
 

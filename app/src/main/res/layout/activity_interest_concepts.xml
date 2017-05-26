@@ -37,7 +37,7 @@
             android:id="@+id/all_concepts_btn"
             android:padding="10dp"
             android:textSize="13dp"
-            android:text="All concepts"
+            android:text="Back"
             android:textAllCaps="false"
             android:minHeight="0dp"
             android:layout_alignParentRight="true"/>

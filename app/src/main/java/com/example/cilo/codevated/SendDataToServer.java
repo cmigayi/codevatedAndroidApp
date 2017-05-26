@@ -41,7 +41,6 @@ public class SendDataToServer extends AsyncTask<Void,Void, String> {
     @Override
     protected String doInBackground(Void... params) {
 
-        Log.d("cilo",data.get("pass"));
         url = baseUrl+url;
         try{
 
@@ -76,12 +75,9 @@ public class SendDataToServer extends AsyncTask<Void,Void, String> {
             else {
                 response="Error Posting";
             }
-
-
         }catch(Exception e){
             e.printStackTrace();
         }
-
         return response;
     }
 

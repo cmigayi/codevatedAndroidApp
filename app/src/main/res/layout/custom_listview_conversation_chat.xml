@@ -2,63 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
-    android:background="#fff">
+    android:padding="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/relative1">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/female_user"
-            android:id="@+id/user_img"/>
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="13dp"
+            android:id="@+id/username"/>
 
         <LinearLayout
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:id="@+id/linear1"
+            android:background="#eee8c8"
+            android:padding="5dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:text="Conversation dated: 27th March 2017"/>
+                android:id="@+id/message"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="13dp"
-                android:textColor="#ccc"
-                android:text="Replies: 0"/>
+                android:textSize="11dp"
+                android:textColor="#949494"
+                android:id="@+id/posted_date"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/mentee"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/username"
-                    android:textSize="13dp"
-                    android:text="John.doe"/>
-
-            </LinearLayout>
 
         </LinearLayout>
 
     </RelativeLayout>
+
+
 
 
 </LinearLayout>

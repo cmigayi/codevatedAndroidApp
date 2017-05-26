@@ -10,10 +10,12 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -52,30 +54,29 @@ public class GetDataFromServer extends AsyncTask<Void,Void,String> {
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(os, "UTF-8"));
-            writer.write(getPostDataString(data));
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(data));
 
-            writer.flush();
-            writer.close();
-            os.close();
-            int responseCode=conn.getResponseCode();
-            Log.d("cecil",""+responseCode);
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
-                BufferedReader br=
-                        new BufferedReader(
-                                new InputStreamReader(conn.getInputStream()));
-                response = br.readLine();
-                Log.d("cecil",response);
-            }
-            else {
-                response="Error Posting";
-            }
-
-
+                writer.flush();
+                writer.close();
+                os.close();
+                int responseCode=conn.getResponseCode();
+                Log.d("cecil",""+responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    BufferedReader br=
+                            new BufferedReader(
+                                    new InputStreamReader(conn.getInputStream()));
+                    response = br.readLine();
+                    Log.d("cecil3",response);
+                }
+                else {
+                    response="Error Posting";
+                }
         }catch(Exception e){
             e.printStackTrace();
+            Log.d("cilo100",""+e);
         }
 
         return response;

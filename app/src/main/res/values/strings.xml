@@ -5,4 +5,5 @@
     <string name="go_back"><![CDATA[<< Go Back]]></string>
     <string name="this_will_remove_your_account_and_data_completely_from_codevated">This will remove your account and data completely from codevated</string>
     <string name="congratulations_you_have_completed_the_signup_process_an_email_has_been_sent_to_you_with_an_activation_link_in_order_to_signin_next_time_you_must_activate_your_account"> you have completed the signup process! An email has been sent to you with </string>
+    <string name="for_your_topic_to_be_posted_you_will_require_atleast_someone_to_second_it_by_default_we_send_it_to_your_mentors_to_aid_in_the_process">For your topic to be posted, you will require atleast one person to second it. By default, we will send it to your mentors to aid in the process</string>
 </resources>

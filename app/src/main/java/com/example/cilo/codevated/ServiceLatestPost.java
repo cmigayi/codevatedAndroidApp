@@ -41,10 +41,14 @@ public class ServiceLatestPost extends Service {
                 new GetDataFromServer(requestDataFromServer, url, new UrlCallBack() {
                     @Override
                     public void done(String response) {
-                        Log.d("cilo#",response);
-                        Intent i = new Intent("latestPosts");
-                        i.putExtra("data",response);
-                        sendBroadcast(i);
+                        if(response == null){
+
+                        }else{
+                            Log.d("cilo#",response);
+                            Intent i = new Intent("latestPosts");
+                            i.putExtra("data",response);
+                            sendBroadcast(i);
+                        }
                     }
                 }).execute();
                 handler.postDelayed(this,2000);

@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -20,7 +21,7 @@
         </activity>
         <activity android:name=".ActivityMain" />
         <activity android:name=".ActivityHome" />
-        <activity android:name=".ActivityPostConcept" />
+        <activity android:name=".ActivityPostConcept"/>
         <activity android:name=".ActivityNotification" />
         <activity android:name=".ActivityUserProfile" />
         <activity android:name=".ActivityMentors" />
@@ -38,6 +39,9 @@
         <activity android:name=".ActivityInterestConcepts" />
         <activity android:name=".ActivityPreviewConcept" />
         <activity android:name=".ActivityCircleSelected" />
+        <activity android:name=".ActivityChatConversation"/>
+        <activity android:name=".ActivitySelectedConcept"/>
+        <activity android:name=".ActivityReadNotification"/>
 
         <service
             android:name=".ServiceLatestPost"
